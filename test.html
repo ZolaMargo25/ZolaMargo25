@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pruebas Unitarias para Calculadora de Costos</title>
+    <!-- Minimal DOM elements that script.js interacts with for calculations -->
+    <style>
+        body { font-family: monospace; }
+        .test-group { margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        .pass { color: green; }
+        .fail { color: red; font-weight: bold; }
+        #test-results li { margin-bottom: 5px;}
+    </style>
+</head>
+<body>
+    <h1>Pruebas Unitarias de Calculadora de Costos</h1>
+    <ul id="test-results"></ul>
+
+    <!-- Hidden input fields for script.js -->
+    <div id="test-inputs" style="display:none;">
+        <input type="number" id="costoCarneCruda">
+        <input type="number" id="pesoPiernas">
+        <input type="number" id="cantidadPiernas">
+        <input type="number" id="pesoEspaldillas">
+        <input type="number" id="cantidadEspaldillas">
+        <input type="number" id="pesoCostillas">
+        <input type="number" id="cantidadCostillas">
+        <input type="number" id="pesoLomo">
+        <input type="number" id="cantidadLomo">
+        <input type="number" id="costoIngredientes">
+        <input type="number" id="mermaCocimiento">
+        <input type="number" id="precioTaco">
+        <input type="number" id="precioConsomeChico">
+        <input type="number" id="precioConsomeGrande">
+        <input type="number" id="costoBebida">
+        <input type="number" id="precioBebida">
+        <input type="number" id="margenGananciaCarneKg">
+        <input type="number" id="margenGananciaCombo">
+    </div>
+
+    <!-- Hidden output elements for script.js -->
+    <div id="test-outputs" style="display:none;">
+        <span id="pesoTotalCarneCruda"></span>
+        <span id="costoTotalProduccion"></span>
+        <span id="pesoNetoCarneCocida"></span>
+        <span id="costoPorKgCarneCocida"></span>
+        <span id="numeroTacosEstimado"></span>
+        <span id="costoPorTaco"></span>
+        <span id="gananciaPorTaco"></span>
+        <span id="ingresosPorTacos"></span>
+        <span id="gananciaTotalPorTacos"></span>
+        <span id="costoConsomeChico"></span>
+        <span id="gananciaConsomeChico"></span>
+        <span id="costoConsomeGrande"></span>
+        <span id="gananciaConsomeGrande"></span>
+        <span id="precioVentaCarneKg"></span>
+        <div id="sugerenciasPaquetes"></div>
+        <div id="sugerenciasPaquetesCombinados"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const testResultsList = document.getElementById('test-results');
+
+        function assertEquals(expected, actual, message) {
+            const li = document.createElement('li');
+            if (Math.abs(expected - actual) < 0.01) { // Using a tolerance for float comparison
+                li.innerHTML = `<span class="pass">PASS:</span> ${message} (Esperado: ${expected.toFixed(2)}, Actual: ${actual.toFixed(2)})`;
+                console.log(`PASS: ${message}`);
+            } else {
+                li.innerHTML = `<span class="fail">FAIL:</span> ${message} (Esperado: ${expected.toFixed(2)}, Actual: ${actual.toFixed(2)})`;
+                console.error(`FAIL: ${message} (Expected: ${expected.toFixed(2)}, Actual: ${actual.toFixed(2)})`);
+            }
+            testResultsList.appendChild(li);
+        }
+
+        function assertIntEquals(expected, actual, message) {
+            const li = document.createElement('li');
+            if (expected === actual) {
+                li.innerHTML = `<span class="pass">PASS:</span> ${message} (Esperado: ${expected}, Actual: ${actual})`;
+                console.log(`PASS: ${message}`);
+            } else {
+                li.innerHTML = `<span class="fail">FAIL:</span> ${message} (Esperado: ${expected}, Actual: ${actual})`;
+                console.error(`FAIL: ${message} (Expected: ${expected}, Actual: ${actual})`);
+            }
+            testResultsList.appendChild(li);
+        }
+
+        function setupDOM(inputs) {
+            for (const id in inputs) {
+                document.getElementById(id).value = inputs[id];
+            }
+        }
+
+        function runTests() {
+            const testGroupTitle1 = document.createElement('h3');
+            testGroupTitle1.textContent = "Pruebas para calcularCostos()";
+            testResultsList.appendChild(testGroupTitle1);
+
+            // Test 1: Basic calculation based on issue data
+            setupDOM({
+                costoCarneCruda: 4500,
+                pesoPiernas: 4.5, cantidadPiernas: 2,
+                pesoEspaldillas: 3.5, cantidadEspaldillas: 2,
+                pesoCostillas: 2.5, cantidadCostillas: 1,
+                pesoLomo: 4.0, cantidadLomo: 1,
+                costoIngredientes: 1000,
+                mermaCocimiento: 5,
+                precioTaco: 27,
+                precioConsomeChico: 15, // Consomme values are placeholders in main script
+                precioConsomeGrande: 27
+            });
+            calcularCostos(); // This function updates the DOM
+
+            let pesoTotalCruda = (4.5*2) + (3.5*2) + (2.5*1) + (4.0*1); // 9 + 7 + 2.5 + 4 = 22.5
+            assertEquals(22.5, parseFloat(document.getElementById('pesoTotalCarneCruda').textContent), "Peso Total Carne Cruda");
+
+            let costoProd = 4500 + 1000; // 5500
+            assertEquals(5500, parseFloat(document.getElementById('costoTotalProduccion').textContent), "Costo Total de Producción");
+
+            let pesoNeto = pesoTotalCruda - 5; // 22.5 - 5 = 17.5
+            assertEquals(17.5, parseFloat(document.getElementById('pesoNetoCarneCocida').textContent), "Peso Neto Carne Cocida");
+
+            let costoKgCocida = costoProd / pesoNeto; // 5500 / 17.5 = 314.2857...
+            assertEquals(314.29, parseFloat(document.getElementById('costoPorKgCarneCocida').textContent), "Costo por Kg Carne Cocida");
+
+            let numTacos = Math.floor(pesoNeto * (1000 / 100)); // 17.5 * 10 = 175
+            assertIntEquals(175, parseInt(document.getElementById('numeroTacosEstimado').textContent), "Número de Tacos Estimado");
+
+            let costoTaco = costoKgCocida / (1000/100); // 314.2857 / 10 = 31.42857
+            assertEquals(31.43, parseFloat(document.getElementById('costoPorTaco').textContent), "Costo por Taco");
+
+            let gananciaTaco = 27 - costoTaco; // 27 - 31.43 = -4.43
+            assertEquals(-4.43, parseFloat(document.getElementById('gananciaPorTaco').textContent), "Ganancia por Taco");
+
+            // Test 2: Zero merma (loss)
+            setupDOM({
+                costoCarneCruda: 100, pesoPiernas: 1, cantidadPiernas: 1, pesoEspaldillas: 0, cantidadEspaldillas: 0,
+                pesoCostillas: 0, cantidadCostillas: 0, pesoLomo: 0, cantidadLomo: 0,
+                costoIngredientes: 10, mermaCocimiento: 0, precioTaco: 5,
+                precioConsomeChico: 3, precioConsomeGrande: 5
+            });
+            calcularCostos();
+            assertEquals(1.00, parseFloat(document.getElementById('pesoNetoCarneCocida').textContent), "Peso Neto con Cero Merma");
+            assertEquals(110.00, parseFloat(document.getElementById('costoPorKgCarneCocida').textContent), "Costo/Kg con Cero Merma");
+
+
+            // Test 3: Merma equals total weight (should result in Infinity or N/A for costs per kg)
+            setupDOM({
+                costoCarneCruda: 100, pesoPiernas: 1, cantidadPiernas: 1, pesoEspaldillas: 0, cantidadEspaldillas: 0,
+                pesoCostillas: 0, cantidadCostillas: 0, pesoLomo: 0, cantidadLomo: 0, // Total 1kg
+                costoIngredientes: 10, mermaCocimiento: 1, // Merma equals total raw weight
+                precioTaco: 5, precioConsomeChico: 3, precioConsomeGrande: 5
+            });
+            calcularCostos();
+            assertEquals(0.00, parseFloat(document.getElementById('pesoNetoCarneCocida').textContent), "Peso Neto Cero (Merma Total)");
+            // script.js now sets textContent to "N/A (Verificar merma)" for costoPorKgCarneCocida in this case
+            const costoKgMermaTotal = document.getElementById('costoPorKgCarneCocida').textContent;
+            if (costoKgMermaTotal === "N/A (Verificar merma)") {
+                 const li = document.createElement('li');
+                 li.innerHTML = `<span class="pass">PASS:</span> Costo/Kg con Merma Total es N/A`;
+                 testResultsList.appendChild(li);
+            } else {
+                 const li = document.createElement('li');
+                 li.innerHTML = `<span class="fail">FAIL:</span> Costo/Kg con Merma Total (Esperado: N/A, Actual: ${costoKgMermaTotal})`;
+                 testResultsList.appendChild(li);
+            }
+
+
+            const testGroupTitle2 = document.createElement('h3');
+            testGroupTitle2.textContent = "Pruebas para calcularPrecioVentaCarneKg()";
+            testResultsList.appendChild(testGroupTitle2);
+
+            // Test 4: calcularPrecioVentaCarneKg
+            // First, run calcularCostos to set up costoPorKgCarneCocida
+            setupDOM({
+                costoCarneCruda: 4500, pesoPiernas: 4.5, cantidadPiernas: 2, pesoEspaldillas: 3.5, cantidadEspaldillas: 2,
+                pesoCostillas: 2.5, cantidadCostillas: 1, pesoLomo: 4.0, cantidadLomo: 1,
+                costoIngredientes: 1000, mermaCocimiento: 5,
+                margenGananciaCarneKg: 50 // 50% margin
+            });
+            calcularCostos(); // Sets costoPorKgCarneCocida to 314.29
+
+            // Now set margin and call the specific function (though calcularCostos already calls it)
+            document.getElementById('margenGananciaCarneKg').value = "50";
+            calcularPrecioVentaCarneKg();
+            let precioVentaKg = 314.2857 * 1.50; // 471.4285...
+            assertEquals(471.43, parseFloat(document.getElementById('precioVentaCarneKg').textContent), "Precio Venta por Kg con 50% margen");
+
+            // Test 5: calcularPrecioVentaCarneKg with 100% margin
+            document.getElementById('margenGananciaCarneKg').value = "100";
+            calcularPrecioVentaCarneKg();
+            let precioVentaKg100 = 314.2857 * 2.00; // 628.5714...
+            assertEquals(628.57, parseFloat(document.getElementById('precioVentaCarneKg').textContent), "Precio Venta por Kg con 100% margen");
+
+            // Add more tests for generarSugerenciasPaquetes and generarPaquetesCombinados if possible,
+            // focusing on the calculation logic rather than exact DOM structure of the lists.
+            // For now, the primary calculation functions are covered.
+            // To test package generation, one would need to check the calculated prices within the generated list items.
+        }
+
+        window.onload = function() {
+            // Clear any previous results if page is reloaded
+            testResultsList.innerHTML = '';
+            runTests();
+        };
+    </script>
+</body>
+</html>

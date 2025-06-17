@@ -1,0 +1,408 @@
+body {
+    font-family: 'Verdana', 'Arial', sans-serif; /* Clean sans-serif for body */
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #F5DEB3; /* Wheat - light earthy background */
+    color: #5C4033; /* Dark Brown - main text color */
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fffaf0; /* FloralWhite - slightly off-white for content background */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Softer shadow */
+    border: 1px solid #D2B48C; /* Tan border */
+}
+
+h1 {
+    font-family: 'Georgia', 'Times New Roman', serif; /* More traditional, rustic feel for main title */
+    color: #8B4513; /* SaddleBrown - for main title */
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2.5em;
+}
+
+h2 { /* Ensure h2 is styled for clickability and button placement */
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #A0522D; /* Sienna - for subtitles */
+    border-bottom: 2px solid #D2B48C; /* Tan border bottom */
+    padding-bottom: 10px;
+    margin-top: 35px;
+    margin-bottom: 10px; /* Reduced margin-bottom to bring content closer */
+    font-size: 1.8em;
+    display: flex; /* For aligning title and button */
+    justify-content: space-between; /* Puts button to the right */
+    align-items: center; /* Vertically aligns title and button */
+    cursor: pointer; /* Indicates the header is clickable */
+}
+
+section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: #FEFDFA; /* Very light beige, almost white */
+    border: 1px solid #E0D6C9; /* Lighter tan border for sections */
+    border-radius: 8px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #6B4F4F; /* A slightly lighter brown for labels */
+}
+
+input[type="number"] {
+    width: calc(100% - 24px); /* Full width minus padding and border */
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #D2B48C; /* Tan border for inputs */
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFAF0; /* FloralWhite, to match container bg */
+    color: #5C4033; /* Dark Brown text */
+    font-size: 1em;
+}
+
+/* General button styles - this will apply to the main calculator button */
+button {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    background-color: #CD5C5C; /* IndianRed - a warm, inviting call to action */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em; /* Slightly larger font for buttons */
+    margin-top: 15px;
+    margin-bottom: 25px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+button:hover {
+    background-color: #B22222; /* Firebrick - darker shade for hover */
+}
+
+/* Specific styles for toggle buttons */
+.toggle-btn {
+    background-color: #A0522D; /* Sienna - matches h2 color */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Makes it circular */
+    width: 30px; /* Fixed width */
+    height: 30px; /* Fixed height */
+    font-size: 1.2em; /* Adjust font size for + / - */
+    line-height: 30px; /* Center text vertically */
+    text-align: center;
+    cursor: pointer;
+    padding: 0; /* Remove default button padding */
+    margin-left: 10px; /* Space from title */
+    display: inline-flex; /* Use flex to center content */
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; /* Prevent button from shrinking */
+    /* Reset general button styles that we don't want for the toggle */
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 30px; /* Explicitly set width again to override general button style if it has more specificity */
+}
+
+.toggle-btn:hover {
+    background-color: #8B4513; /* SaddleBrown - darker shade for hover */
+}
+
+.collapsible-content {
+    padding-top: 15px; /* Add some space below the header */
+    /* Animation can be added later if desired */
+}
+
+
+#resultados p, /* This rule is now too general due to .subsection p below */
+#ventaCarne p { /* This one is fine */
+    background-color: #FFF8DC; /* Cornsilk - light yellow/beige for results */
+    border-left: 5px solid #CD5C5C; /* IndianRed accent */
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 4px; /* Added border-radius */
+}
+
+#resultados span, /* This rule is also too general */
+#ventaCarne span { /* This one is fine */
+    font-weight: bold;
+    color: #8B4513; /* SaddleBrown for result values */
+}
+
+#sugerenciasPaquetes ul,
+#sugerenciasPaquetesCombinados ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sugerenciasPaquetes li,
+#sugerenciasPaquetesCombinados li {
+    background-color: #FAF0E6; /* Linen - for package items */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #E6D8C9; /* Light tan border */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow for list items */
+}
+
+#sugerenciasPaquetesCombinados li strong {
+    color: #A0522D; /* Sienna - for combo package titles */
+    font-size: 1.2em; /* Slightly larger for emphasis */
+}
+
+
+/* Input field layout improvements */
+#inputs .collapsible-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 0 20px; /* Space between grid items (only column gap) */
+}
+
+#inputs .collapsible-content > button,
+#paquetesCombinados .collapsible-content > button,
+#ventaCarne .collapsible-content > button,
+#report-generation > button {
+    grid-column: 1 / -1;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+.message.info {
+    background-color: #e7f3fe;
+    color: #31708f;
+    border: 1px solid #bce8f1;
+}
+.message.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+
+@media (max-width: 650px) {
+    #inputs .collapsible-content {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    .toggle-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 1em;
+        line-height: 25px;
+    }
+    button {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+}
+
+/* Styling for new sub-sections within #resultados */
+.subsection {
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #FCF5E5; /* A slightly different light beige, to differentiate from section bg */
+    border: 1px solid #E0D6C9; /* Consistent with other section borders */
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04); /* A very subtle shadow */
+}
+
+.subsection:first-child {
+    margin-top: 0; /* Remove top margin for the first subsection */
+}
+
+#resultados .collapsible-content > .subsection h3 {
+    font-family: 'Georgia', 'Times New Roman', serif; /* Consistent with other h2/h1 */
+    color: #A0522D; /* Sienna - same as h2 */
+    font-size: 1.4em; /* Slightly smaller than main section h2 */
+    margin-top: 0; /* Remove top margin as .subsection has it */
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #D2B48C; /* Consistent border bottom */
+    /* Override h2 flex properties if they were inherited, ensure block display */
+    display: block;
+    cursor: default; /* Not clickable unlike main h2 */
+}
+
+/* Re-apply/ensure specific styling for paragraphs within the subsections of #resultados */
+#resultados .subsection p {
+    background-color: #FFF8DC; /* Cornsilk - from existing #resultados p */
+    border-left: 5px solid #CD5C5C; /* IndianRed accent - from existing #resultados p */
+    padding: 12px; /* from existing #resultados p */
+    margin-bottom: 10px; /* from existing #resultados p */
+    border-radius: 4px; /* from existing #resultados p */
+}
+
+/* Ensure spans within these paragraphs also inherit or re-apply their specific styling */
+#resultados .subsection p span {
+    font-weight: bold;
+    color: #8B4513; /* SaddleBrown for result values - from existing #resultados span */
+     /* If the spans had other specific styles, they'd be re-applied here */
+    background-color: transparent; /* Ensure no bg color leakage from p if spans are inline-block etc. */
+}
+
+
+/* Print-specific styles */
+@media print {
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        color: #000;
+        background-color: #fff;
+        margin: 20px;
+        padding: 0;
+    }
+
+    body > *:not(#print-area) {
+        display: none !important;
+    }
+
+    #print-area, #print-area * {
+        display: block !important;
+        visibility: visible !important;
+        position: static !important;
+        float: none !important;
+        width: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .report-container {
+        width: 100%;
+        box-shadow: none;
+        border: none;
+    }
+
+    .report-section {
+        margin-bottom: 20px !important;
+        padding-bottom: 15px !important;
+        border-bottom: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+
+    .report-section:last-child {
+        border-bottom: none;
+    }
+
+    #print-area h1 {
+        font-size: 20pt !important;
+        color: #000 !important;
+        text-align: center !important;
+        margin-bottom: 20px !important;
+        padding: 0 !important;
+    }
+
+    #print-area h2 {
+        font-size: 16pt !important;
+        color: #333 !important;
+        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+        border-bottom: 1px solid #666 !important;
+        padding-bottom: 5px !important;
+        display: block !important;
+    }
+
+    .toggle-btn {
+        display: none !important;
+    }
+
+    #print-area p {
+        font-size: 11pt !important;
+        line-height: 1.4 !important;
+        margin-bottom: 5px !important;
+        padding: 0 !important;
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    #print-area hr {
+        display: block !important;
+        border-top: 1px solid #ccc !important;
+        margin: 10px 0 !important;
+    }
+
+
+    #print-area ul {
+        padding-left: 20px !important;
+        font-size: 10pt !important;
+        list-style-type: disc !important;
+    }
+
+    #print-area li {
+        margin-bottom: 8px !important;
+        padding: 2px !important;
+        border: none !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    #print-area strong {
+        color: #000 !important;
+        font-weight: bold !important;
+    }
+
+    button, input[type="number"], label, #report-generation {
+        display: none !important;
+    }
+
+    #print-area a, #print-area a:visited {
+        color: #000 !important;
+        text-decoration: none !important;
+    }
+
+    .report-footer {
+        margin-top: 30px !important;
+        text-align: center !important;
+        font-size: 9pt !important;
+        color: #666 !important;
+    }
+
+    #print-area .report-container {
+        box-shadow: none !important;
+    }
+
+    /* Styling for .subsection-report in print */
+    #print-area .subsection-report {
+        margin-top: 10px !important; /* Use !important to ensure override if needed */
+        margin-bottom: 15px !important;
+        padding: 10px !important;
+        border: 1px dashed #bbb !important; /* Light dashed border for report subsections */
+        page-break-inside: avoid;
+    }
+
+    #print-area .subsection-report h3 {
+        font-size: 13pt !important;
+        color: #222 !important;
+        margin-top: 0 !important; /* Reset from general print h3 if needed */
+        margin-bottom: 8px !important;
+        padding-bottom: 3px !important;
+        border-bottom: 1px solid #999 !important;
+        display: block !important; /* Ensure it's block */
+    }
+}
+
+body.printing > .container {
+    /* display: none !important; */
+}

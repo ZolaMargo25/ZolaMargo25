@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Costos de Barbacoa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Costos de Barbacoa</h1>
+
+<section id="inputs" class="collapsible-section">
+    <h2>Entradas de Costos <button class="toggle-btn">-</button></h2>
+    <div class="collapsible-content">
+        <label for="costoCarneCruda">Costo Total de Carne Cruda (MXN):</label>
+            <input type="number" id="costoCarneCruda" value="4500">
+
+            <label for="pesoPiernas">Peso Piernas (kg c/u):</label>
+            <input type="number" id="pesoPiernas" value="4.5">
+            <label for="cantidadPiernas">Cantidad Piernas:</label>
+            <input type="number" id="cantidadPiernas" value="2">
+
+            <label for="pesoEspaldillas">Peso Espaldillas (kg c/u):</label>
+            <input type="number" id="pesoEspaldillas" value="3.5">
+            <label for="cantidadEspaldillas">Cantidad Espaldillas:</label>
+            <input type="number" id="cantidadEspaldillas" value="2">
+
+            <label for="pesoCostillas">Peso Costillas (kg c/u):</label>
+            <input type="number" id="pesoCostillas" value="2.5">
+            <label for="cantidadCostillas">Cantidad Costillas:</label>
+            <input type="number" id="cantidadCostillas" value="1"> <!-- Assuming 1 set of ribs based on "las costillas 2.5 killos C/U" -->
+
+            <label for="pesoLomo">Peso Lomo (kg c/u):</label>
+            <input type="number" id="pesoLomo" value="4.0">
+            <label for="cantidadLomo">Cantidad Lomo:</label>
+            <input type="number" id="cantidadLomo" value="1"> <!-- Assuming 1 Lomo based on "Lomo 4.0 kilos C/U" -->
+
+            <label for="costoIngredientes">Costo Ingredientes (MXN):</label>
+            <input type="number" id="costoIngredientes" value="1000">
+
+            <label for="mermaCocimiento">Merma por Cocimiento y Hueso (kg):</label>
+            <input type="number" id="mermaCocimiento" value="5">
+
+            <label for="precioTaco">Precio de Venta Taco (MXN):</label>
+            <input type="number" id="precioTaco" value="27">
+
+            <label for="precioConsomeChico">Precio de Venta Consomé Chico (200ml) (MXN):</label>
+            <input type="number" id="precioConsomeChico" value="15">
+            <label for="precioConsomeGrande">Precio de Venta Consomé Grande (500ml) (MXN):</label>
+            <input type="number" id="precioConsomeGrande" value="27">
+
+            <label for="costoBebida">Costo Promedio Bebida (MXN):</label>
+            <input type="number" id="costoBebida" value="10">
+            <label for="precioBebida">Precio de Venta Bebida (MXN):</label>
+            <input type="number" id="precioBebida" value="20">
+    </div>
+</section>
+
+        <button onclick="calcularCostos()">Calcular Costos y Ganancias</button>
+
+<section id="resultados" class="collapsible-section">
+    <h2>Resultados <button class="toggle-btn">-</button></h2>
+    <div class="collapsible-content">
+
+        <div class="subsection" id="resultadosCarne">
+            <h3>Análisis de Carne (Rendimiento y Costos)</h3>
+            <p>Peso Total Carne Cruda: <span id="pesoTotalCarneCruda"></span> kg</p>
+            <p>Peso Neto Carne Cocida: <span id="pesoNetoCarneCocida"></span> kg</p>
+            <p>Costo Total de Producción: MXN <span id="costoTotalProduccion"></span></p>
+            <p>Costo por Kg Carne Cocida: MXN <span id="costoPorKgCarneCocida"></span></p>
+        </div>
+
+        <div class="subsection" id="resultadosTacos">
+            <h3>Análisis de Tacos</h3>
+            <p>Número de Tacos Estimado (100g por taco): <span id="numeroTacosEstimado"></span></p>
+            <p>Costo por Taco: MXN <span id="costoPorTaco"></span></p>
+            <p>Ganancia por Taco: MXN <span id="gananciaPorTaco"></span></p>
+            <p>Ingresos Totales por Tacos: MXN <span id="ingresosPorTacos"></span></p>
+            <p>Ganancia Total por Tacos: MXN <span id="gananciaTotalPorTacos"></span></p>
+        </div>
+
+        <div class="subsection" id="resultadosConsome">
+            <h3>Análisis de Consomé</h3>
+            <p>Costo Consomé Chico (Estimado): MXN <span id="costoConsomeChico"></span></p>
+            <p>Ganancia por Consomé Chico: MXN <span id="gananciaConsomeChico"></span></p>
+            <p>Costo Consomé Grande (Estimado): MXN <span id="costoConsomeGrande"></span></p>
+            <p>Ganancia por Consomé Grande: MXN <span id="gananciaConsomeGrande"></span></p>
+        </div>
+
+    </div>
+</section>
+
+<section id="empaquetado" class="collapsible-section">
+    <h2>Sugerencias de Paquetes <button class="toggle-btn">-</button></h2>
+    <div class="collapsible-content">
+        <div id="sugerenciasPaquetes">
+            <!-- Las sugerencias de paquetes se insertarán aquí -->
+        </div>
+    </div>
+</section>
+
+<section id="paquetesCombinados" class="collapsible-section">
+    <h2>Sugerencias de Paquetes Combinados (Tacos, Consomé, Bebida) <button class="toggle-btn">-</button></h2>
+    <div class="collapsible-content">
+        <label for="margenGananciaCombo">Margen de Ganancia para Paquetes Combinados (%):</label>
+            <input type="number" id="margenGananciaCombo" value="40">
+            <button onclick="generarPaquetesCombinados()">Generar Paquetes Combinados</button>
+            <div id="sugerenciasPaquetesCombinados">
+                <!-- Las sugerencias de paquetes combinados se insertarán aquí -->
+            </div>
+    </div>
+</section>
+
+<section id="ventaCarne" class="collapsible-section">
+    <h2>Venta de Carne por Kilo <button class="toggle-btn">-</button></h2>
+    <div class="collapsible-content">
+        <label for="margenGananciaCarneKg">Margen de Ganancia para Venta por Kg (%):</label>
+            <input type="number" id="margenGananciaCarneKg" value="50">
+            <button onclick="calcularPrecioVentaCarneKg()">Calcular Precio de Venta por Kg</button>
+            <p>Precio de Venta por Kg de Carne Cocida: MXN <span id="precioVentaCarneKg"></span></p>
+    </div>
+</section>
+        <section id="report-generation">
+            <h2>Generar Reporte</h2>
+            <button id="printReportBtn">Imprimir Reporte de Costos</button>
+        </section>
+    </div> <!-- End of .container -->
+    <div id="print-area" style="display:none;"></div> <!-- Area to hold the report for printing -->
+    <script src="script.js"></script>
+</body>
+</html>
