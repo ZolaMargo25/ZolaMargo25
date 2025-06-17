@@ -3,7 +3,7 @@ import { UIManager } from './js/ui-manager.js';
 import { DataManager } from './js/data-manager.js';
 import { ReportGenerator } from './js/report-generator.js';
 import { Analytics } from './js/analytics.js';
-import { createIcons } from 'lucide';
+import { CreativeCommons as createIcons } from 'lucide';
 
 class BarbacoaApp {
     constructor() {
