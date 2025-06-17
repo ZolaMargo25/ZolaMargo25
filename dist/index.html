@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Profesional de Barbacoa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-D2tgf-Mj.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CEazztwa.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h2>Cargando Calculadora de Barbacoa</h2>
+                <p>Preparando tu experiencia profesional...</p>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="main-app" class="main-app hidden">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <div class="logo-icon">🥩</div>
+                        <div class="logo-text">
+                            <h1>Barbacoa Pro</h1>
+                            <p>Calculadora Profesional de Costos</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button id="save-project-btn" class="btn btn-secondary">
+                            <i data-lucide="save"></i>
+                            Guardar Proyecto
+                        </button>
+                        <button id="load-project-btn" class="btn btn-secondary">
+                            <i data-lucide="folder-open"></i>
+                            Cargar Proyecto
+                        </button>
+                        <button id="new-project-btn" class="btn btn-primary">
+                            <i data-lucide="plus"></i>
+                            Nuevo Proyecto
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Project Info -->
+            <section class="project-info">
+                <div class="container">
+                    <div class="project-header">
+                        <input type="text" id="project-name" class="project-name-input" placeholder="Nombre del Proyecto" value="Mi Proyecto de Barbacoa">
+                        <div class="project-meta">
+                            <span id="last-saved">Último guardado: Nunca</span>
+                            <span id="project-status" class="status-indicator">●</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Tabs -->
+            <nav class="tab-navigation">
+                <div class="container">
+                    <div class="tab-list">
+                        <button class="tab-btn active" data-tab="inputs">
+                            <i data-lucide="calculator"></i>
+                            Datos de Entrada
+                        </button>
+                        <button class="tab-btn" data-tab="results">
+                            <i data-lucide="bar-chart-3"></i>
+                            Resultados
+                        </button>
+                        <button class="tab-btn" data-tab="packages">
+                            <i data-lucide="package"></i>
+                            Paquetes
+                        </button>
+                        <button class="tab-btn" data-tab="analytics">
+                            <i data-lucide="trending-up"></i>
+                            Análisis
+                        </button>
+                        <button class="tab-btn" data-tab="reports">
+                            <i data-lucide="file-text"></i>
+                            Reportes
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="container">
+                    <!-- Inputs Tab -->
+                    <div id="inputs-tab" class="tab-content active">
+                        <div class="section-card">
+                            <div class="section-header">
+                                <h2>
+                                    <i data-lucide="shopping-cart"></i>
+                                    Costos de Materia Prima
+                                </h2>
+                                <p>Ingresa los costos y cantidades de tu carne cruda</p>
+                            </div>
+                            <div class="input-grid">
+                                <div class="input-group">
+                                    <label for="costoCarneCruda">Costo Total Carne Cruda</label>
+                                    <div class="input-with-currency">
+                                        <span class="currency">$</span>
+                                        <input type="number" id="costoCarneCruda" value="4500" step="0.01">
+                                        <span class="unit">MXN</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="costoIngredientes">Costo de Ingredientes</label>
+                                    <div class="input-with-currency">
+                                        <span class="currency">$</span>
+                                        <input type="number" id="costoIngredientes" value="1000" step="0.01">
+                                        <span class="unit">MXN</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-card">
+                            <div class="section-header">
+                                <h2>
+                                    <i data-lucide="beef"></i>
+                                    Especificaciones de Cortes
+                                </h2>
+                                <p>Define el peso y cantidad de cada tipo de corte</p>
+                            </div>
+                            <div class="cuts-grid">
+                                <div class="cut-card">
+                                    <div class="cut-icon">🦵</div>
+                                    <h3>Piernas</h3>
+                                    <div class="cut-inputs">
+                                        <div class="input-group">
+                                            <label for="pesoPiernas">Peso por unidad (kg)</label>
+                                            <input type="number" id="pesoPiernas" value="4.5" step="0.1">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="cantidadPiernas">Cantidad</label>
+                                            <input type="number" id="cantidadPiernas" value="2" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cut-card">
+                                    <div class="cut-icon">🥩</div>
+                                    <h3>Espaldillas</h3>
+                                    <div class="cut-inputs">
+                                        <div class="input-group">
+                                            <label for="pesoEspaldillas">Peso por unidad (kg)</label>
+                                            <input type="number" id="pesoEspaldillas" value="3.5" step="0.1">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="cantidadEspaldillas">Cantidad</label>
+                                            <input type="number" id="cantidadEspaldillas" value="2" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cut-card">
+                                    <div class="cut-icon">🍖</div>
+                                    <h3>Costillas</h3>
+                                    <div class="cut-inputs">
+                                        <div class="input-group">
+                                            <label for="pesoCostillas">Peso por unidad (kg)</label>
+                                            <input type="number" id="pesoCostillas" value="2.5" step="0.1">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="cantidadCostillas">Cantidad</label>
+                                            <input type="number" id="cantidadCostillas" value="1" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cut-card">
+                                    <div class="cut-icon">🥓</div>
+                                    <h3>Lomo</h3>
+                                    <div class="cut-inputs">
+                                        <div class="input-group">
+                                            <label for="pesoLomo">Peso por unidad (kg)</label>
+                                            <input type="number" id="pesoLomo" value="4.0" step="0.1">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="cantidadLomo">Cantidad</label>
+                                            <input type="number" id="cantidadLomo" value="1" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-card">
+                            <div class="section-header">
+                                <h2>
+                                    <i data-lucide="settings"></i>
+                                    Parámetros de Cocción y Venta
+                                </h2>
+                            </div>
+                            <div class="input-grid">
+                                <div class="input-group">
+                                    <label for="mermaCocimiento">Merma por Cocimiento (kg)</label>
+                                    <input type="number" id="mermaCocimiento" value="5" step="0.1">
+                                    <small>Peso perdido durante la cocción y deshuesado</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="precioTaco">Precio de Venta por Taco</label>
+                                    <div class="input-with-currency">
+                                        <span class="currency">$</span>
+                                        <input type="number" id="precioTaco" value="27" step="0.01">
+                                        <span class="unit">MXN</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="precioConsomeChico">Consomé Chico (200ml)</label>
+                                    <div class="input-with-currency">
+                                        <span class="currency">$</span>
+                                        <input type="number" id="precioConsomeChico" value="15" step="0.01">
+                                        <span class="unit">MXN</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="precioConsomeGrande">Consomé Grande (500ml)</label>
+                                    <div class="input-with-currency">
+                                        <span class="currency">$</span>
+                                        <input type="number" id="precioConsomeGrande" value="27" step="0.01">
+                                        <span class="unit">MXN</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="costoBebida">Costo Promedio Bebida</label>
+                                    <div class="input-with-currency">
+                                        <span class="currency">$</span>
+                                        <input type="number" id="costoBebida" value="10" step="0.01">
+                                        <span class="unit">MXN</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="precioBebida">Precio de Venta Bebida</label>
+                                    <div class="input-with-currency">
+                                        <span class="currency">$</span>
+                                        <input type="number" id="precioBebida" value="20" step="0.01">
+                                        <span class="unit">MXN</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-section">
+                            <button id="calculate-btn" class="btn btn-primary btn-large">
+                                <i data-lucide="calculator"></i>
+                                Calcular Costos y Rentabilidad
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Tab -->
+                    <div id="results-tab" class="tab-content">
+                        <div id="results-content">
+                            <div class="results-placeholder">
+                                <i data-lucide="bar-chart-3"></i>
+                                <h3>Realiza el cálculo para ver los resultados</h3>
+                                <p>Completa los datos en la pestaña "Datos de Entrada" y presiona "Calcular"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Packages Tab -->
+                    <div id="packages-tab" class="tab-content">
+                        <div id="packages-content">
+                            <div class="results-placeholder">
+                                <i data-lucide="package"></i>
+                                <h3>Genera paquetes después del cálculo</h3>
+                                <p>Los paquetes se mostrarán una vez que realices el cálculo de costos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Tab -->
+                    <div id="analytics-tab" class="tab-content">
+                        <div id="analytics-content">
+                            <div class="results-placeholder">
+                                <i data-lucide="trending-up"></i>
+                                <h3>Análisis visual de rentabilidad</h3>
+                                <p>Gráficos y métricas detalladas aparecerán después del cálculo</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports Tab -->
+                    <div id="reports-tab" class="tab-content">
+                        <div class="section-card">
+                            <div class="section-header">
+                                <h2>
+                                    <i data-lucide="file-text"></i>
+                                    Generación de Reportes
+                                </h2>
+                                <p>Exporta tus cálculos en diferentes formatos</p>
+                            </div>
+                            <div class="reports-grid">
+                                <div class="report-card">
+                                    <div class="report-icon">📊</div>
+                                    <h3>Reporte Completo PDF</h3>
+                                    <p>Incluye todos los cálculos, gráficos y análisis</p>
+                                    <button id="export-pdf-btn" class="btn btn-primary">
+                                        <i data-lucide="download"></i>
+                                        Descargar PDF
+                                    </button>
+                                </div>
+                                <div class="report-card">
+                                    <div class="report-icon">📋</div>
+                                    <h3>Reporte Ejecutivo</h3>
+                                    <p>Resumen de costos y rentabilidad para imprimir</p>
+                                    <button id="print-report-btn" class="btn btn-secondary">
+                                        <i data-lucide="printer"></i>
+                                        Imprimir
+                                    </button>
+                                </div>
+                                <div class="report-card">
+                                    <div class="report-icon">💾</div>
+                                    <h3>Exportar Datos</h3>
+                                    <p>Guarda los datos en formato JSON para respaldo</p>
+                                    <button id="export-data-btn" class="btn btn-secondary">
+                                        <i data-lucide="database"></i>
+                                        Exportar JSON
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Success Toast -->
+            <div id="toast-container" class="toast-container"></div>
+
+            <!-- Modals -->
+            <div id="save-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Guardar Proyecto</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <label for="save-project-name">Nombre del Proyecto</label>
+                            <input type="text" id="save-project-name" placeholder="Mi Proyecto de Barbacoa">
+                        </div>
+                        <div class="input-group">
+                            <label for="save-project-description">Descripción (opcional)</label>
+                            <textarea id="save-project-description" placeholder="Descripción del proyecto..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('save-modal')">Cancelar</button>
+                        <button id="confirm-save-btn" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="load-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Cargar Proyecto</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="projects-list" class="projects-list">
+                            <!-- Projects will be loaded here -->
+                        </div>
+                        <div class="load-options">
+                            <label for="load-file-input" class="btn btn-secondary">
+                                <i data-lucide="upload"></i>
+                                Cargar desde archivo
+                            </label>
+                            <input type="file" id="load-file-input" accept=".json" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('load-modal')">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
